@@ -1,4 +1,7 @@
-# key-value-db
+# @dieugene/key-value-db
+
+[![npm version](https://badge.fury.io/js/@dieugene%2Fkey-value-db.svg)](https://badge.fury.io/js/@dieugene%2Fkey-value-db)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
 Библиотека для работы с базой данных ключ-значение на основе YDB (Yandex Database). Предоставляет простой интерфейс для сохранения, получения и управления JSON-данными с поддержкой доменов и гибкими возможностями поиска.
 
@@ -14,13 +17,18 @@
 ## Установка
 
 ```bash
-npm install @dieugene/ydb-serverless @dieugene/utils
+npm install @dieugene/key-value-db
 ```
+
+## Требования
+
+- Node.js >= 16.0.0
+- Yandex Database (YDB) serverless instance
 
 ## Быстрый старт
 
 ```javascript
-const { init } = require('./main.js');
+const { init } = require('@dieugene/key-value-db');
 
 // Инициализация без домена
 const db = init();
@@ -40,6 +48,20 @@ console.log(user); // { name: 'John', age: 30 }
 
 // Удаление данных
 await db.del('user:123');
+```
+
+## Настройка окружения
+
+Убедитесь, что у вас установлена переменная окружения для подключения к YDB:
+
+```bash
+export YDB_ADDRESS="/ru-central..."
+```
+
+Или создайте файл `.env`:
+
+```env
+YDB_ADDRESS=grpc://your-ydb-endpoint:2135/path/to/database
 ```
 
 ## API
