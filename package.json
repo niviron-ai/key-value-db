@@ -1,0 +1,31 @@
+{
+  "name": "@dieugene/key-value-db",
+  "version": "1.0.0",
+  "description": "A key-value database module using Yandex Database (YDB) serverless",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch main.js"
+  },
+  "keywords": [
+    "key-value",
+    "database",
+    "ydb",
+    "yandex-database",
+    "serverless"
+  ],
+  "author": "Eugene Ditkovsky",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dieugene/key-value-db.git"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@dieugene/utils": "^1.10.1",
+    "@dieugene/ydb-serverless": "^1.0.0"
+  }
+}
