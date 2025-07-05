@@ -44,7 +44,7 @@ SELECT data FROM ${table_name} WHERE id = $id;`,
      */
     async function get_list(id_list = []) {
         if (I.arr.isEmpty(id_list)) return [];
-        let result = await ydb.get_by_id_list(table_name, id_list, 'id');
+        let result = await ydb.get_by_id_list(table_name, id_list.map(id => define_id(id)), 'id');
         result.forEach(r => r.data = JSON.parse(r.data));
         return result;
     }
