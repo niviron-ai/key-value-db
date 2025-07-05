@@ -26,6 +26,6 @@
   },
   "dependencies": {
     "@dieugene/utils": "^1.10.1",
-    "@dieugene/ydb-serverless": "^1.0.0"
+    "@dieugene/ydb-serverless": "^1.0.1"
   }
 }

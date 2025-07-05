@@ -46,6 +46,12 @@ SELECT data FROM ${table_name} WHERE id = $id;`,
         return I.arr.isEmpty(result) ? by_default : JSON.parse(result[0].data);
     }
 
+    async function get_list(id_list = []) {
+        if (I.arr.isEmpty(id_list)) return [];
+        let result = await ydb.get_by_id_list(table_name, id_list, 'id');
+        return result.map(r => JSON.parse(r.data));
+    }
+
     /**
      * Получает все записи, у которых идентификатор начинается с заданной строки
      * @param {string} startsWith - Префикс для поиска (по умолчанию используется домен)
@@ -73,7 +79,7 @@ WHERE StartsWith(id, '${domain}') AND EndsWith(id, '${endsWith}');`,
             result = await ydb.execute(query);
         return result.map(rec => ({id: rec.id, data: JSON.parse(rec.data)}));
     }
-
+    get.list = get_list;
     get.where_id_starts_with = get_by_starts_with;
     get.where_id_ends_with = get_by_ends_with;
     get.all = async () => get_by_starts_with();
