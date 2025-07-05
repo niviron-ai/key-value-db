@@ -1,27 +1,6 @@
 const ydb_serverless = require("@dieugene/ydb-serverless");
 const I = require("@dieugene/utils");
 
-/**
- * Инициализирует экземпляр key-value базы данных с поддержкой доменов
- * @param {string} domain - Префикс домена для всех ключей (по умолчанию пустая строка)
- * @param {Object} options - Опции конфигурации
- * @param {string} options.table_name - Имя таблицы в базе данных (по умолчанию 'key_object_db')
- * @param {string} options.database - Адрес базы данных YDB (по умолчанию process.env.YDB_ADDRESS)
- * @returns {{
- *   get: function(string, *): Promise<*> & {
- *     list: function(string[]): Promise<Array<{id: string, data: object}>>,
- *     where_id_starts_with: function(string): Promise<Array<{id: string, data: *}>>,
- *     where_id_ends_with: function(string): Promise<Array<{id: string, data: *}>>,
- *     all: function(): Promise<Array<{id: string, data: *}>>
- *   },
- *   set: function(string, *): Promise<*> & {
- *     bulk: function(Array<{id: string, data: *}>): Promise<void>,
- *     sub_domain: function(string): Object
- *   },
- *   del: function(string): Promise<void>,
- *   copy: function(string, string, *): Promise<void>
- * }} Объект с методами для работы с БД
- */
 function init(domain = '', {table_name = 'key_object_db', database = process.env.YDB_ADDRESS} = {}) {
 
     const ydb = ydb_serverless.init(database);
