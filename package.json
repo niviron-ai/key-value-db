@@ -1,6 +1,6 @@
 {
   "name": "@dieugene/key-value-db",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A key-value database module using Yandex Database (YDB) serverless",
   "main": "main.js",
   "scripts": {
