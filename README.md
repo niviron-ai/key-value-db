@@ -109,11 +109,21 @@ const user = await db.get('user:123', { name: 'Unknown' });
 **Параметры:**
 - `id_list` (Array<string>, по умолчанию: `[]`) - Массив идентификаторов
 
-**Возвращает:** `Promise<Array<any>>` - Массив найденных данных
+**Возвращает:** `Promise<Array<{id: string, data: object}>>` - Массив объектов, содержащих id и данные для каждого ключа
+
+> **Важно:** Функция возвращает объекты с полями `id` и `data`, а не только данные. Это позволяет получить как сами данные, так и их полные идентификаторы в БД.
 
 **Пример:**
 ```javascript
 const users = await db.get.list(['user:1', 'user:2', 'user:3']);
+// Возвращает: [
+//   { id: 'users::user:1', data: { name: 'John' } },
+//   { id: 'users::user:2', data: { name: 'Jane' } },
+//   { id: 'users::user:3', data: { name: 'Bob' } }
+// ]
+
+// Извлечение только данных
+const userData = users.map(user => user.data);
 ```
 
 #### `get.where_id_starts_with(startsWith)`
@@ -264,6 +274,12 @@ const admins = await userDb.get.where_id_ends_with(':admin');
 
 // Получение нескольких пользователей одновременно
 const specificUsers = await userDb.get.list(['123', '456', '789']);
+// Возвращает массив объектов: [{ id: 'users::123', data: {...} }, ...]
+
+// Работа с результатами get.list()
+specificUsers.forEach(user => {
+  console.log(`ID: ${user.id}, Name: ${user.data.name}`);
+});
 ```
 
 ### Работа с настройками приложения

@@ -45,11 +45,16 @@ SELECT data FROM ${table_name} WHERE id = $id;`,
             result = await ydb.execute(query);
         return I.arr.isEmpty(result) ? by_default : JSON.parse(result[0].data);
     }
-
+    /**
+     * Получает список значений по массиву идентификаторов
+     * @param {string[]} id_list - Массив идентификаторов ключей
+     * @returns {Promise<Array<{id: string, data: object}>>} Массив объектов, содержащих id и данные для каждого ключа
+     */
     async function get_list(id_list = []) {
         if (I.arr.isEmpty(id_list)) return [];
         let result = await ydb.get_by_id_list(table_name, id_list, 'id');
-        return result.map(r => JSON.parse(r.data));
+        result.forEach(r => r.data = JSON.parse(r.data));
+        return result;
     }
 
     /**
