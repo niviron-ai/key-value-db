@@ -7,17 +7,20 @@ const I = require("@dieugene/utils");
  * @param {Object} options - Опции конфигурации
  * @param {string} options.table_name - Имя таблицы в базе данных (по умолчанию 'key_object_db')
  * @param {string} options.database - Адрес базы данных YDB (по умолчанию process.env.YDB_ADDRESS)
- * @returns {Object} Объект с методами для работы с БД:
- * @returns {Function} returns.get - Получение данных по ключу
- * @returns {Function} returns.get.list - Получение списка записей по массиву идентификаторов
- * @returns {Function} returns.get.where_id_starts_with - Получение записей по префиксу ключа
- * @returns {Function} returns.get.where_id_ends_with - Получение записей по суффиксу ключа
- * @returns {Function} returns.get.all - Получение всех записей домена
- * @returns {Function} returns.set - Сохранение данных по ключу
- * @returns {Function} returns.set.bulk - Массовое сохранение данных
- * @returns {Function} returns.set.sub_domain - Создание экземпляра с поддоменом
- * @returns {Function} returns.del - Удаление записи по ключу
- * @returns {Function} returns.copy - Копирование данных между ключами
+ * @returns {{
+ *   get: function(string, *): Promise<*> & {
+ *     list: function(string[]): Promise<Array<{id: string, data: object}>>,
+ *     where_id_starts_with: function(string): Promise<Array<{id: string, data: *}>>,
+ *     where_id_ends_with: function(string): Promise<Array<{id: string, data: *}>>,
+ *     all: function(): Promise<Array<{id: string, data: *}>>
+ *   },
+ *   set: function(string, *): Promise<*> & {
+ *     bulk: function(Array<{id: string, data: *}>): Promise<void>,
+ *     sub_domain: function(string): Object
+ *   },
+ *   del: function(string): Promise<void>,
+ *   copy: function(string, string, *): Promise<void>
+ * }} Объект с методами для работы с БД
  */
 function init(domain = '', {table_name = 'key_object_db', database = process.env.YDB_ADDRESS} = {}) {
 
